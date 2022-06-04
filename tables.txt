@@ -1,0 +1,9 @@
+{"Book":"The Compound Effect","Author":"Darren Hardy","Amount":"5","Price":"9"}
+{"Book":"The 7 Habits of Highly Effective People","Author":"Stephen R. Covey","Amount":"4","Price":"23"}
+{"Book":"The Miracle Mornin","Author":"Hal Elrod","Amount":"10","Price":"21"}
+{"Book":"Influence: The Psychology of Persuasion","Author":"Robert B. Cialdini","Amount":"4","Price":"12"}
+{"Book":"The ONE Thing","Author":"Gary Keller","Amount":"1","Price":"11"}
+{"id":"100","name":"John Doe","email":"john@website.com","country":"US","age":"35"}
+{"id":"101","name":"Jane Doe","email":"jane@website.com","country":"UK","age":"30"}
+{"id":"102","name":"John Lee","email":"john@website.com","country":"FR","age":"20"}
+{"id":"103","name":"Greg Hoover","email":"greg@website.com","country":"US","age":"35"}
