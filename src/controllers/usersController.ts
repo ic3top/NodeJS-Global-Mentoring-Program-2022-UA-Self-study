@@ -71,14 +71,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
 
-  const deletedUser = await deleteUser(userId);
+  const deletedUserId = await deleteUser(userId);
 
-  if (!deletedUser.length) {
+  if (!deletedUserId) {
     res.json({ message: `User with ${userId} id was not found.` });
     return;
   }
 
-  res.json({ message: `User with ${userId} id was deleted.`, data: deletedUser });
+  res.json({ message: `User with ${userId} id was deleted.` });
 });
 
 export default router;
