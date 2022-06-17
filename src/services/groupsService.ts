@@ -1,4 +1,5 @@
 import { Group } from '../models/group';
+import { sequelize } from '../db';
 
 export const getGroups = async () => {
   const groups = await Group.findAll();
@@ -37,4 +38,19 @@ export const deleteGroup = async (groupId: string) => {
   const deletedGroup = Group.destroy({ where: { id: groupId } });
 
   return deletedGroup;
+};
+
+export const addUsersToGroup = async (groupId: string, userIds: string[]) => {
+  try {
+    const result = await sequelize.transaction(async (t) => {
+      const group = await Group.findOne({ where: { id: groupId } });
+      await group.addUsers(userIds);
+
+      return group;
+    });
+
+    return { result };
+  } catch (error) {
+    return { error };
+  }
 };

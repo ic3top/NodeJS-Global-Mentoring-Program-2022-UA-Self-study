@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  getGroup, getGroups, addGroup, deleteGroup, updateGroup,
+  getGroup, getGroups, addGroup, deleteGroup, updateGroup, addUsersToGroup,
 } from '../services/groupsService';
 import { groupSchemaOptional, groupSchemaRequired } from '../schemas/group';
 
@@ -70,6 +70,28 @@ router.delete('/:id', async (req, res) => {
   }
 
   res.json({ message: `User with ${groupId} id was deleted.` });
+});
+
+router.post('/addUsersToGroup', async (req, res) => {
+  const payload = req.body;
+
+  if (payload.groupId && payload.userIds) {
+    const { groupId, userIds } = payload;
+
+    const { result, error } = await addUsersToGroup(groupId, userIds);
+
+    if (error) {
+      return res.status(400).json({
+        message: 'Error happened, Verify if all records with provided ids exist.',
+      });
+    }
+
+    if (result) {
+      return res.json({ message: `All users from array were added to group with ${groupId} id.` });
+    }
+  }
+
+  res.status(400).json({ message: 'You must provide groupId and userIds.' });
 });
 
 export default router;

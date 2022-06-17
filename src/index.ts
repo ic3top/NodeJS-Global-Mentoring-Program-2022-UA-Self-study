@@ -6,10 +6,15 @@ import { sequelize } from './db';
 import { logger } from './utils/logger';
 import usersRouter from './controllers/usersController';
 import groupsRouter from './controllers/groupsController';
+import { Group } from './models/group';
+import { User } from './models/user';
 
 sequelize.sync({ force: true }).then(() => {
   logger.info('Drop and re-sync db.');
 });
+
+Group.belongsToMany(User, { through: 'UserGroup' });
+User.belongsToMany(Group, { through: 'UserGroup' });
 
 dotenv.config();
 

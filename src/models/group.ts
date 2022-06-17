@@ -1,5 +1,4 @@
 import { DataTypes, Model } from 'sequelize';
-import { UserInt } from './user';
 import { sequelize } from '../db';
 
 export enum Permissions {
