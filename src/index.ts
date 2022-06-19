@@ -3,18 +3,15 @@ import cors from 'cors';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import { sequelize } from './db';
+import './db/relations';
 import { logger } from './utils/logger';
 import usersRouter from './controllers/usersController';
 import groupsRouter from './controllers/groupsController';
-import { Group } from './models/group';
-import { User } from './models/user';
+import { errorMiddleware } from './middleware/arror.middleware';
 
 sequelize.sync({ force: true }).then(() => {
   logger.info('Drop and re-sync db.');
 });
-
-Group.belongsToMany(User, { through: 'UserGroup' });
-User.belongsToMany(Group, { through: 'UserGroup' });
 
 dotenv.config();
 
@@ -32,6 +29,12 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
 
+app.use(errorMiddleware);
+
 app.listen(port, () => {
   logger.info(`[server]: Server is running at https://localhost:${port}`);
+});
+
+process.on('unhandledRejection', (error: Error) => {
+  logger.error('unhandledRejection', error.message);
 });

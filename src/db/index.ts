@@ -11,6 +11,6 @@ export const sequelize = new Sequelize(`postgres://postgres:${process.env.DB_PAS
     await sequelize.authenticate();
     logger.info('Connection has been established successfully.');
   } catch (error) {
-    logger.error('Unable to connect to the database:', error);
+    logger.fatal('Unable to connect to the database:', error);
   }
 })();

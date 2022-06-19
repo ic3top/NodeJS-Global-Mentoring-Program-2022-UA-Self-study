@@ -3,6 +3,7 @@ import {
   addUser, deleteUser, getSuggestedUsers, getUser, getUsers, updateUser,
 } from '../services/usersService';
 import { userSchemaOptional, userSchemaRequired } from '../schemas/user';
+import { validationMiddleware } from '../middleware/validation.middleware';
 
 // TODO: Handle errors
 const router = express.Router();
@@ -34,29 +35,15 @@ router.get('/:id', async (req, res) => {
   res.json({ data: user });
 });
 
-router.post('/', async (req, res) => {
-  const { value, error } = userSchemaRequired.validate(req.body, { abortEarly: false });
-
-  if (error) {
-    res.status(400).json({ message: 'Invalid data provided', errors: error.details, data: value });
-    return;
-  }
-
+router.post('/', validationMiddleware(userSchemaRequired), async (req, res) => {
   const newUser = await addUser(req.body);
 
   res.json({ message: 'User created successfully', data: newUser });
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validationMiddleware(userSchemaOptional), async (req, res) => {
   const userId = req.params.id;
   const payload = req.body;
-
-  const { value, error } = userSchemaOptional.validate(payload, { abortEarly: false });
-
-  if (error) {
-    res.status(400).json({ message: 'Invalid data provided', errors: error.details, data: value });
-    return;
-  }
 
   const updatedUser = await updateUser(userId, payload);
 
