@@ -1,8 +1,6 @@
 import log4js from 'log4js';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+import { LOG_LEVEL } from '../preload';
 
 export const logger = log4js.getLogger();
 
-logger.level = process.env.LOG_LEVEL as string;
+logger.level = LOG_LEVEL as string;

@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import { hash } from 'bcrypt';
 import { User, UserInt } from '../models/user';
 
 export const getUsers = async () => {
@@ -61,7 +62,10 @@ export const updateUser = async (userId: string, payload: Partial<User>) => {
 };
 
 export const addUser = async (newUser: UserInt) => {
-  const createdUser = await User.create(newUser);
+  const createdUser = await User.create({
+    ...newUser,
+    password: await hash(newUser.password, 10),
+  });
 
   return createdUser;
 };

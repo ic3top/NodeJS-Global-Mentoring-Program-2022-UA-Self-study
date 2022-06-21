@@ -1,11 +1,10 @@
 import express from 'express';
 import {
-  addUser, deleteUser, getSuggestedUsers, getUser, getUsers, updateUser,
-} from '../services/usersService';
-import { userSchemaOptional, userSchemaRequired } from '../schemas/user';
+  deleteUser, getSuggestedUsers, getUser, getUsers, updateUser,
+} from '../services/users.service';
+import { userSchemaOptional } from '../schemas/user';
 import { validationMiddleware } from '../middleware/validation.middleware';
 
-// TODO: Handle errors
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -33,12 +32,6 @@ router.get('/:id', async (req, res) => {
   }
 
   res.json({ data: user });
-});
-
-router.post('/', validationMiddleware(userSchemaRequired), async (req, res) => {
-  const newUser = await addUser(req.body);
-
-  res.json({ message: 'User created successfully', data: newUser });
 });
 
 router.put('/:id', validationMiddleware(userSchemaOptional), async (req, res) => {

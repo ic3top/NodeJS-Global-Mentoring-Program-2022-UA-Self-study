@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getGroup, getGroups, addGroup, deleteGroup, updateGroup, addUsersToGroup,
-} from '../services/groupsService';
+} from '../services/groups.service';
 import { groupSchemaOptional, groupSchemaRequired } from '../schemas/group';
 import { validationMiddleware } from '../middleware/validation.middleware';
 

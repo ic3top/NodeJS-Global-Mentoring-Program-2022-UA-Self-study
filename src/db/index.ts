@@ -1,10 +1,11 @@
 import * as dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 import { logger } from '../utils/logger';
+import { DB_PASSWORD, DB_PORT, DB_NAME } from '../preload';
 
 dotenv.config();
 
-export const sequelize = new Sequelize(`postgres://postgres:${process.env.DB_PASSWORD}@localhost:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+export const sequelize = new Sequelize(`postgres://postgres:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
 
 (async () => {
   try {
