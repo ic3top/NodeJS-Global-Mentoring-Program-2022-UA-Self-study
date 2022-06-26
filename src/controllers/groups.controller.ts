@@ -52,7 +52,8 @@ router.delete('/:id', async (req, res) => {
   const deletedCount = await deleteGroup(groupId);
 
   if (deletedCount === 0) {
-    res.status(400).json({ message: `User with ${groupId} id was not found.` });
+    res.status(404).json({ message: `User with ${groupId} id was not found.` });
+    return;
   }
 
   res.json({ message: `User with ${groupId} id was deleted.` });

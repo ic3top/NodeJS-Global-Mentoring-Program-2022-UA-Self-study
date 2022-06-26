@@ -44,6 +44,7 @@ export const addUsersToGroup = async (groupId: string, userIds: string[]) => {
   try {
     const result = await sequelize.transaction(async (t) => {
       const group = await Group.findOne({ where: { id: groupId } });
+      // @ts-ignore
       await group.addUsers(userIds);
 
       return group;
